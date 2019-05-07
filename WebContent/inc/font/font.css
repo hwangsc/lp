@@ -1,0 +1,49 @@
+@font-face {
+    font-family:'NotoSans';
+    font-style:normal;
+    font-weight:100;
+    src:local('Noto Sans Thin'), local('NotoSans-Thin'),
+    url(NotoSansKR-Thin.woff) format('woff'),
+	url(NotoSansKR-Thin.woff2) format('woff2'),
+    url(NotoSansKR-Thin.otf) format('opentype');
+}
+@font-face {
+    font-family:'NotoSans';
+    font-style:normal;
+    font-weight:normal;
+    src:local('Noto Sans Light'), local('NotoSans-Light'),
+    url(NotoSansKR-Light.woff) format('woff'),
+    url(NotoSansKR-Light.woff2) format('woff2'),
+    url(NotoSansKR-Light.otf) format('opentype');
+}
+@font-face {
+    font-family:'NotoSans';
+    font-style:normal;
+    font-weight:400;
+    src:local('Noto Sans Regular'), local('NotoSans-Regular'),
+    url(NotoSansKR-Regular.woff) format('woff'),
+	url(NotoSansKR-Regular.woff2) format('woff2'),
+    url(NotoSansKR-Regular.otf) format('opentype');
+}
+@font-face {
+    font-family:'Roboto';
+    font-style:normal;
+    font-weight:normal;
+    src:local('Roboto Regular'), local('Roboto-Regular'),
+    url(Roboto-Regular.woff) format('woff'),
+    url(Roboto-Regular.woff2) format('woff2'),
+    url(Roboto-Regular.ttf) format('opentype');
+}
+@font-face {
+    font-family:'Nunito';
+    font-style:normal;
+    font-weight:normal;
+    src:local('Nunito Bold'), local('Nunito-Bold'),
+    url(Nunito-Bold.woff) format('woff'),
+    url(Nunito-Bold.woff2) format('woff2'),
+    url(Nunito-Bold.ttf) format('opentype');
+}
+
+
+.roboto { font-family:Roboto, Sans-serif; }
+.nunito { font-family:Nunito, Sans-serif; }

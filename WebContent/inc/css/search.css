@@ -1,0 +1,30 @@
+@charset "utf-8";
+/* 통합검색 섹션별 컬러 리셋 */
+.shop .search_hint p { color:#d40049; }
+.shop .search_hint ul li:before { color:#d40049; }
+.movie .search_hint p { color:#8200c8; }
+.movie .search_hint ul li:before { color:#8200c8; }
+.coupon .search_hint p { color:#00ca26; }
+.coupon .search_hint ul li:before { color:#00ca26; }
+.giftcard .search_hint p { color:#4400e0; }
+.giftcard .search_hint ul li:before { color:#4400e0; }
+.webtoon .search_hint p { color:#00dbb6; }
+.webtoon .search_hint ul li:before { color:#00dbb6; }
+.kids .search_hint p { color:#00b4ce; }
+.kids .search_hint ul li:before { color:#00b4ce; }
+.kids .search_input .btn_sch.voice { display:none; }
+.kids .search_input .btn_sch.word { display:block; }
+.comics .search_hint p { color:#5400af; }
+.comics .search_hint ul li:before { color:#5400af; }
+.ebook .search_hint p { color:#1697db; }
+.ebook .search_hint ul li:before { color:#1697db; }
+
+/* 통합검색 결과 섹션별 컬러 리셋*/
+.shop .search_result p em { color:#d40049; }
+.movie .search_result p em { color:#8200c8; }
+.coupon .search_result p em { color:#00ca26; }
+.giftcard .search_result p em { color:#4400e0; }
+.webtoon .search_result p em { color:#00dbb6; }
+.kids .search_result p em { color:#00b4ce; }
+.comics .search_result p em { color:#5400af; }
+.ebook .search_result p em { color:#1697db; }

@@ -1,0 +1,748 @@
+<html lang="ko"><head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lpoint</title>
+    <link rel="stylesheet" type="text/css" href="./WebContent/inc/css/style.css">
+    <link rel="stylesheet" type="text/css" href="./WebContent/inc/css/commerce.css"><!-- 커머스 -->
+    <script async="" src="//www.google-analytics.com/analytics.js"></script>
+    <script type="text/javascript" src="./WebContent/js/jquery/jquery-1.11.2.min.js"></script>
+    <script type="text/javascript" src="./WebContent/inc/js/lpoint_new.js"></script>
+
+    <script type="text/javascript" src="https://store.lpoint.com/WebContent/js/mobile.comn.js"></script>
+    <script type="text/javascript" src="https://store.lpoint.com/WebContent/js/eiwaf/eiwaf-1.0.0_cco.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://store.lpoint.com/WebContent/js/eiwaf/eiwaf-1.0.0.js" charset="utf-8"></script>
+    <script type="text/javascript" src="./WebContent/js/eiwaf/eiwaf.core.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://store.lpoint.com/WebContent/js/eiwaf/eiwaf.core.js" charset="utf-8"></script>
+    <script type="text/javascript" src="https://store.lpoint.com/WebContent/js/util.comn.js" charset="utf-8"></script>
+
+    <script>
+
+        //브라우져 체크
+        var eiwafv_UserAgentL = navigator.userAgent.toLowerCase();
+        var eiwafv_Browser;
+        if (/trident/.test(eiwafv_UserAgentL) || /msie/.test(eiwafv_UserAgentL)) {
+            eiwafv_Browser = "msie";
+        } else if (/chrome/.test(eiwafv_UserAgentL)) {
+            eiwafv_Browser = "chrome";
+        } else if (/mozilla/.test(eiwafv_UserAgentL) && !/webkit/.test(eiwafv_UserAgentL)) {
+            eiwafv_Browser = "mozilla";
+        } else if (/opera/.test(eiwafv_UserAgentL)) {
+            eiwafv_Browser = "opera";
+        } else {
+            eiwafv_Browser = "webkit";
+        }
+        function fnDetView(prvGrpId){
+            mbf_OpenPop("/app/center/LADD100210.do?prvGrpId="+prvGrpId);
+        }
+    </script>
+
+
+    <script>
+        $(function(){
+            //170421 추가 - 아이폰 & 안드로이드폰 분기처리 (그라데이션 표현 분기)
+
+            if(/Android/i.test(navigator.userAgent)) {
+                $('.top_bx').append('<div class="img_bx"><div class="change_bg1"></div></div>');
+            } else {
+                $('body').removeAttr('style');
+                $('body').css({'background':'#8200c8', 'background':'-webkit-linear-gradient(144deg, #8200c8 13%, #009bfa 65%)' ,'background':'linear-gradient(-36deg, #8200c8 89%, #009bfa 95%)', 'background-attachment':'fixed'});
+            }
+            //170421 추가 - top_bx 높이값
+            $('.top_bx').height($(window).height() + parseInt($('.prd_lst .contents').css('transform').split(',')[5]))
+            //170421 추가 - 타이틀 영역 가운데 정렬
+            //180405 위여백 추가해달라고하여 주석처리. -ked
+            //$('.prd_lst .top_bx .info_bx').css('marginTop',-Math.floor($('.prd_lst .top_bx .info_bx').height()/2))
+
+            //셀렉트 선택 시 가이드 텍스트 위치 이동
+            $(document).on('focus change', '.list', function () {
+                var selected = $(this).find('option:selected').text();
+                $(this).prev($('.btn_filter')).children($('em')).text(selected);
+            });
+
+            // 변경 되었을때 페이지 이동
+            $(document).on('change', '.list', function () {
+                var list_type = $(this).find('option:selected').val();
+                var location_url = '/lpoint/prd_list/'+ list_type;
+                if(list_type == 'unlimited'){
+                    location_url += '?sort=OPENDATE';
+                }
+                location.href = location_url;
+            });
+
+            // 처음 페이지 로드시에도 적용
+            var selected = $(this).find('option:selected').text();
+            $('.btn_filter').children($('em')).text(selected);
+
+            // append 이후에 조절
+            if(/iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+                //console.log("linear-gradient .....when history.back()");
+                $('body').removeAttr('style');
+                $('body').css({'background':'#8200c8', 'background':'-webkit-linear-gradient(144deg, #8200c8 13%, #009bfa 65%)' ,'background':'linear-gradient(-36deg, #8200c8 89%, #009bfa 95%)', 'background-attachment':'fixed'});
+            }
+        });
+    </script>
+</head>
+<body>
+<!-- wrap -->
+<div id="wrap" class="hd1">
+    <!-- container -->
+    <!-- [D] 170324
+    실물 상품인 경우 shop 클래스 추가
+    영화 상품인 경우 movie 클래스 추가
+    쿠폰 상품인 경우 coupon 클래스 추가
+    기프트카드 상품인 경우 giftcard 클래스 추가
+    -->
+    <div id="container" class="prd_lst movie"><!-- 170324 수정 : 클래스 변경/추가 -->
+        <!-- top_bx -->
+        <div class="top_bx">
+            <!-- info_bx -->
+            <div class="info_bx">
+                <p class="lpoint">L.POINT</p><!-- 170427 수정 -->
+                <h2 class="category">MOVIE</h2><!-- 170427 수정 -->
+                <p class="desc">엘포인트로 PLAYY 최신영화<br>콘텐츠를 이용해 보세요</p>
+            </div>
+            <!-- //info_bx -->
+            <div class="img_bx"><div class="change_bg1"></div></div></div>
+        <!-- //top_bx -->
+        <!-- //sorting_bx : 170414 수정 -->
+        <!-- contents -->
+        <div class="contents">
+            <!-- category_st -->
+            <div class="category_st">
+                <!-- select_bx -->
+                <div class="select_bx">
+                    <a href="javascript:void(0)" class="btn_filter" title=""><em>추천영화 TOP30</em></a>
+                    <!-- [D] 필터 선택 시 시스템 피커 노출 -->
+                    <select class="list">
+                        <option value="top30" selected="">추천영화 TOP30</option>
+                        <option value="new">최근 개봉영화</option>
+                        <!--                        <option value="nonmovie" --><!---->국내/해외 드라마 시리즈--&gt;
+                        <option value="unlimited">무제한 30일 영화</option>
+                        <option value="lowprice">부담없는 알뜰영화</option>
+                        <option value="allmovie">한눈에 보는 전체영화</option>
+                        <!--						--><!--							--><!--<option value="promo01" --><!---->[이벤트] 설특집 영화 할인! 새해 복 많이 받으면 돼지~--&gt;<!--							--><!--<option value="promo02" --><!---->[이벤트] 222--&gt;<!--						-->					</select>
+                </div>
+                <!-- //select_bx -->
+            </div>
+            <!-- //category_st -->
+            <!-- prd_contents_lst -->
+            <div class="prd_contents_lst top30">
+                <ul>
+                    <li>
+                        <span class="num">01</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000116464','극한직업');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000058080.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="tag">
+                                        <span>프리미엄</span>								</p>
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000116464','극한직업');" title="상세 페이지로 이동">극한직업</a></p>
+                                    <p class="star_score">8.54<span class="st_off"><span class="st_on" style="width:85.4%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">5,500P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">02</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000116961','항거:유관순 이야기');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000058144.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="tag">
+                                        <span>프리미엄</span>								</p>
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000116961','항거:유관순 이야기');" title="상세 페이지로 이동">항거:유관순 이야기</a></p>
+                                    <p class="star_score">8.59<span class="st_off"><span class="st_on" style="width:85.9%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">5,500P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">03</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000116826','사바하');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000058112.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="tag">
+                                        <span>프리미엄</span>								</p>
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000116826','사바하');" title="상세 페이지로 이동">사바하</a></p>
+                                    <p class="star_score">7.22<span class="st_off"><span class="st_on" style="width:72.2%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">5,500P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">04</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000116389','증인');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000058073.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="tag">
+                                        <span>프리미엄</span>								</p>
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000116389','증인');" title="상세 페이지로 이동">증인</a></p>
+                                    <p class="star_score">9.07<span class="st_off"><span class="st_on" style="width:90.7%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">5,500P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">05</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000115956','말모이');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057935.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="tag">
+                                        <span>프리미엄</span>								</p>
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000115956','말모이');" title="상세 페이지로 이동">말모이</a></p>
+                                    <p class="star_score">9.07<span class="st_off"><span class="st_on" style="width:90.7%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">5,500P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">06</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000115904','내안의 그놈');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057893.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="tag">
+                                        <span>프리미엄</span>								</p>
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000115904','내안의 그놈');" title="상세 페이지로 이동">내안의 그놈</a></p>
+                                    <p class="star_score">8.19<span class="st_off"><span class="st_on" style="width:81.9%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">5,500P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">07</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000115573','스윙키즈');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057824.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="tag">
+                                        <span>프리미엄</span>								</p>
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000115573','스윙키즈');" title="상세 페이지로 이동">스윙키즈</a></p>
+                                    <p class="star_score">8.37<span class="st_off"><span class="st_on" style="width:83.7%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">4,400P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">08</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000115188','완벽한 타인');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057749.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000115188','완벽한 타인');" title="상세 페이지로 이동">완벽한 타인</a></p>
+                                    <p class="star_score">8.63<span class="st_off"><span class="st_on" style="width:86.3%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">09</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000115701','국가부도의 날');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057849.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000115701','국가부도의 날');" title="상세 페이지로 이동">국가부도의 날</a></p>
+                                    <p class="star_score">8.16<span class="st_off"><span class="st_on" style="width:81.6%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">10</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000114164','창궐');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057666.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000114164','창궐');" title="상세 페이지로 이동">창궐</a></p>
+                                    <p class="star_score">5.09<span class="st_off"><span class="st_on" style="width:50.9%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">11</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000113678','안시성');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057434.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000113678','안시성');" title="상세 페이지로 이동">안시성</a></p>
+                                    <p class="star_score">8.0<span class="st_off"><span class="st_on" style="width:80%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">12</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000113585','명당');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000044839.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000113585','명당');" title="상세 페이지로 이동">명당</a></p>
+                                    <p class="star_score">7.09<span class="st_off"><span class="st_on" style="width:70.9%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">13</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000112996','너의결혼식');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000054780.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000112996','너의결혼식');" title="상세 페이지로 이동">너의결혼식</a></p>
+                                    <p class="star_score">8.43<span class="st_off"><span class="st_on" style="width:84.3%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">14</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000112919','신과함께-인과 연');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057467.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000112919','신과함께-인과 연');" title="상세 페이지로 이동">신과함께-인과 연</a></p>
+                                    <p class="star_score">7.71<span class="st_off"><span class="st_on" style="width:77.1%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">1,320P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">15</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000112917','공작');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057466.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000112917','공작');" title="상세 페이지로 이동">공작</a></p>
+                                    <p class="star_score">6.84<span class="st_off"><span class="st_on" style="width:68.4%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">16</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000112422','독전');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057368.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000112422','독전');" title="상세 페이지로 이동">독전</a></p>
+                                    <p class="star_score">7.55<span class="st_off"><span class="st_on" style="width:75.5%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">1,320P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">17</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000112912','목격자');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057461.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000112912','목격자');" title="상세 페이지로 이동">목격자</a></p>
+                                    <p class="star_score">4.94<span class="st_off"><span class="st_on" style="width:49.4%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">18</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000109280','지금만나러갑니다');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000055838.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000109280','지금만나러갑니다');" title="상세 페이지로 이동">지금만나러갑니다</a></p>
+                                    <p class="star_score">8.72<span class="st_off"><span class="st_on" style="width:87.2%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">19</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000107498','궁합');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000044068.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000107498','궁합');" title="상세 페이지로 이동">궁합</a></p>
+                                    <p class="star_score">6.57<span class="st_off"><span class="st_on" style="width:65.7%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">1,320P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">20</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="전체">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000107230','패딩턴 2 (자막)');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000051667.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000107230','패딩턴 2 (자막)');" title="상세 페이지로 이동">패딩턴 2 (자막)</a></p>
+                                    <p class="star_score">9.11<span class="st_off"><span class="st_on" style="width:91.1%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">1,320P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">21</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000106840','신과함께-죄와벌');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000056402.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000106840','신과함께-죄와벌');" title="상세 페이지로 이동">신과함께-죄와벌</a></p>
+                                    <p class="star_score">7.83<span class="st_off"><span class="st_on" style="width:78.3%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">22</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000107110','흥부');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000056454.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000107110','흥부');" title="상세 페이지로 이동">흥부</a></p>
+                                    <p class="star_score">4.43<span class="st_off"><span class="st_on" style="width:44.3%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">23</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000105402','꾼');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000056143.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000105402','꾼');" title="상세 페이지로 이동">꾼</a></p>
+                                    <p class="star_score">7.62<span class="st_off"><span class="st_on" style="width:76.2%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">1,320P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">24</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000103732','택시운전사');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000055587.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000103732','택시운전사');" title="상세 페이지로 이동">택시운전사</a></p>
+                                    <p class="star_score">9.04<span class="st_off"><span class="st_on" style="width:90.4%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">1,320P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">25</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="전체">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000110963','리틀 포레스트');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000057201.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000110963','리틀 포레스트');" title="상세 페이지로 이동">리틀 포레스트</a></p>
+                                    <p class="star_score">8.76<span class="st_off"><span class="st_on" style="width:87.6%"></span></span></p>
+                                    <p class="price kor">PLAYY 무제한 상품</p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">26</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000102533','청년경찰');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000055209.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000102533','청년경찰');" title="상세 페이지로 이동">청년경찰</a></p>
+                                    <p class="star_score">8.31<span class="st_off"><span class="st_on" style="width:83.1%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">1,320P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">27</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="12세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000103861','너의 이름은(더빙)');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000055657.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000103861','너의 이름은(더빙)');" title="상세 페이지로 이동">너의 이름은(더빙)</a></p>
+                                    <p class="star_score">8.75<span class="st_off"><span class="st_on" style="width:87.5%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">1,320P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">28</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000098421','보안관');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000053557.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000098421','보안관');" title="상세 페이지로 이동">보안관</a></p>
+                                    <p class="star_score">7.91<span class="st_off"><span class="st_on" style="width:79.1%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">1,320P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">29</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000104112','신시내티 잡');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000055787.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000104112','신시내티 잡');" title="상세 페이지로 이동">신시내티 잡</a></p>
+                                    <p class="star_score">4.81<span class="st_off"><span class="st_on" style="width:48.1%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">2,750P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="num">30</span>
+                        <div class="contents_bx">
+                            <div class="img_bx">
+                                <div class="postermark" data-status="15세">
+                                    <a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000103764','킬러의 보디가드');" title="상세 페이지로 이동"><img src="https://bc.playy.co.kr/upload_img/S/S_SP0000055628.jpg" width="100%" height="" alt="싱품 이미지"></a>
+                                </div>
+                            </div>
+                            <div class="info_bx">
+                                <div class="bx">
+                                    <p class="ttl"><a href="javascript:pageGoLoad('https://kth.lpoint.com/lpoint/prd_detail/SG0000103764','킬러의 보디가드');" title="상세 페이지로 이동">킬러의 보디가드</a></p>
+                                    <p class="star_score">8.39<span class="st_off"><span class="st_on" style="width:83.9%"></span></span></p>
+                                    <p class="price"> <!--영화상시15%할인 적용-->
+                                        <span class="fixed">1,320P</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <!-- //prd_contents_lst -->
+            <!-- copyright_bx -->
+            <div class="copyright_bx">
+                <p>L.POINT 결제문의<a href="tel:1899-8900" class="gotolink" title="L.POINT 결제문의">1899-8900</a></p>
+                <p>PLAYY 영화 이용 문의<a href="mailto:playy.help@kt.com" class="gotolink" title="PLAYY 영화 이용 문의">playy.help@kt.com</a></p>
+                <p class="links"><a href="javascript:fnDetView('F04');" title="PLAYY 이용약관 페이지로 이동">PLAYY 이용약관</a><em>·</em><a href="javascript:fnDetView('A07');" title="개인정보처리방침 페이지로 이동">개인정보처리방침</a><em>·</em><a href="javascript:fnDetView('F06');" title="청소년보호정책 페이지로 이동">청소년보호정책</a></p>
+                <p class="copy">COPYRIGHT © LOTTE MEMBERS.</p>
+            </div>
+            <!-- //copyright_bx -->
+        </div>
+        <!-- //contents -->
+    </div>
+    <!-- //container -->
+</div>
+<!-- wrap -->
+<script>
+    function pageGoLoad(url, title){
+        ga('send','event','OC-영화-목록','클릭',title);
+        try{
+            mbf_GoLoad(url);
+        }
+        catch (e) {location.href = url;}
+    }
+
+
+    $(window).load(function() {
+        try {mbf_CallByIframe('lms://showTitle');} catch (e) {}
+        try{mbf_TransparentTitle('', 'white');}catch (e) {}
+    });
+</script>
+
+</body></html>
