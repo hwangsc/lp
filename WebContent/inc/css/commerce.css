@@ -2530,6 +2530,7 @@
 .evt_lst .prd_contents_lst > ul::-webkit-scrollbar {display:none} 
 .evt_lst .prd_contents_lst > ul > li{display:inline-block;background-color: #fff;width:200px;text-align: left;border-radius:4px;box-shadow: 3px 3px 15px #aaa;margin:0 10px;vertical-align: top;}
 .evt_lst .prd_contents_lst > ul > li:last-child{margin-right:30px}
+.evt_lst .prd_contents_lst > ul > li:first-child{margin-right:10px}
 .evt_lst .prd_contents_lst > ul > li .img_bx img{border-radius:4px 4px 0 0 }
 .evt_lst .prd_contents_lst > ul > li .info_bx{padding:17px 20px 25px}
 .evt_lst .prd_contents_lst > ul > li .info_bx .ttl{display:block;overflow:hidden;width:100%;max-height:3.142em;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;word-wrap:break-word;font-size:0.875em;font-weight:normal;color:#000;line-height:1.571em;letter-spacing:-0.03em}
