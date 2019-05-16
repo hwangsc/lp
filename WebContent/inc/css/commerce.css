@@ -2562,7 +2562,8 @@
 .evt_lst .prd_contents_lst .info_bx .limit{overflow:hidden;margin-top:8px;font-size:0.875em;font-weight:normal;color:#000;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal !important}
 .evt_lst .prd_contents_lst .info_bx .badge { display:inline-block; position:relative; margin-left:10px; height:13px; padding:0 0px 0 3px; font:normal 0.750em/13px roboto; color:#fff; border-radius:2px; background-color:#d0d0d0; }
 .evt_lst .prd_contents_lst .info_bx .badge:before{content:""; position:absolute; left:-5px; top:50%; margin:-3px 0 0; width:0; height:0; vertical-align:middle; border:1px solid transparent; border-top-color:#d0d0d0; border-width:4px 4px 0; transform:rotate(90deg); -webkit-transform:rotate(90deg); }
-
+.evt_lst .btn_mv_more{display:block;text-align: center;height:50px;line-height:50px;background-color:#4498F2;color:#fff;font-size:15px;margin:30px 30px 0;letter-spacing:-.5px}
+.evt_lst .btn_mv_more:before{content:'';display:inline-block;width:25px;height:50px;background:url(../img/ic_more.png) 0 50% no-repeat;background-size:25px auto;vertical-align: top;margin-right:13px;}
 .evt_lst.evt_free_mov{background-color:#000;padding-top:70px}
 .evt_lst.evt_free_mov .tx{color:#fff}
 .evt_lst.evt_free_mov +.evt_lst{padding-top:70px}
