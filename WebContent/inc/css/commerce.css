@@ -2517,11 +2517,19 @@
 .evt_tx dl{font-size:14px;font-weight:500}
 .evt_tx dl dt{color:#000;margin-top:20px}
 .evt_tx dl dd{color:#666}
+.evt_tx dl dd.alt{color:#000;font-weight:500}
+.evt_tx dl dd.alt strong{font-weight:500;color:#f00}
 .evt_lst{background-color:#F1F1F1;padding:20px 0 50px;background-size:}
 
 .evt_lst .tit{padding-left:25px;}
 .evt_lst .lb{overflow:hidden;display:inline-block;height:14px;padding:0 3px;border:1px solid #E83D2D;border-radius:2px;font-family:NotoSans;font-size:0.688em;color:#fff;font-weight:normal;line-height:12px;background-color:#E83D2D;font-weight:200}
 .evt_lst .tx{font-size:16px;letter-spacing:-.5px;font-weight:500;margin-top:6px}
+
+.evt_lst .tit2{width:200px;margin-left:auto;margin-right:auto}
+.evt_lst .lb2{overflow:hidden;font-family:NotoSans;font-size:12px;color:#fff;font-weight:normal;font-style: italic;line-height:12px;font-weight:200}
+.evt_lst .lb2 strong{font-weight:500;}
+.evt_lst .tx2{font-size:21px;letter-spacing:-.5px;font-weight:500;margin-top:46px;color:#fff}
+.evt_lst .txp{font-size:15px;letter-spacing:-.5px;margin-top:10px;color:#fff}
 
 .evt_lst{background-image: url(../img/bg_evt_mov.png);background-position:100% 100%;background-repeat:no-repeat;background-size:45% auto;}
 .evt_lst .prd_contents_lst{}
@@ -2562,6 +2570,13 @@
 .evt_lst .prd_contents_lst .info_bx .limit{overflow:hidden;margin-top:8px;font-size:0.875em;font-weight:normal;color:#000;text-overflow:ellipsis;white-space:nowrap;word-wrap:normal !important}
 .evt_lst .prd_contents_lst .info_bx .badge { display:inline-block; position:relative; margin-left:10px; height:13px; padding:0 0px 0 3px; font:normal 0.750em/13px roboto; color:#fff; border-radius:2px; background-color:#d0d0d0; }
 .evt_lst .prd_contents_lst .info_bx .badge:before{content:""; position:absolute; left:-5px; top:50%; margin:-3px 0 0; width:0; height:0; vertical-align:middle; border:1px solid transparent; border-top-color:#d0d0d0; border-width:4px 4px 0; transform:rotate(90deg); -webkit-transform:rotate(90deg); }
+
+.evt_lst .prd_contents_lst .info_bx .rating {vertical-align: top; }
+.evt_lst .prd_contents_lst .info_bx .rating .rate_bg { display: inline-block; width: 68px; height: 11px; background: url(../img/sp_star.png) 0 0 repeat-x; text-align: left; vertical-align: middle; background-size:68px auto;}
+.evt_lst .prd_contents_lst .info_bx .rating .rate_bg span { display: inline-block; height: 11px; background: url(../img/sp_star.png) 0 -15px repeat-x;background-size:68px auto; vertical-align: top; }
+.evt_lst .prd_contents_lst .info_bx .rating .rate_tx { display: inline-block; margin-right: 3px; font-size: 12px; line-height: 12px; color: #000; vertical-align: middle; font-weight:200;font-style: italic;}
+.evt_lst .prd_contents_lst .info_bx .point_area{font-size: 12px; line-height: 12px; color: #000; vertical-align: middle; font-weight:200;font-style: italic;margin-top:10px}
+
 .evt_lst .btn_mv_more{display:block;text-align: center;height:50px;line-height:50px;background-color:#4498F2;color:#fff;font-size:15px;margin:30px 30px 0;letter-spacing:-.5px}
 .evt_lst .btn_mv_more:before{content:'';display:inline-block;width:25px;height:50px;background:url(../img/ic_more.png) 0 43% no-repeat;background-size:25px auto;vertical-align: top;margin-right:13px;}
 .evt_lst.evt_free_mov{background-color:#000;padding-top:70px}
