@@ -2521,8 +2521,10 @@
 .evt_tx dl dd.alt strong{font-weight:500;color:#f00}
 .evt_lst{background-color:#F1F1F1;padding:20px 0 50px;background-size:}
 
-.evt_lst .tit{padding-left:25px;}
-.evt_lst .lb{overflow:hidden;display:inline-block;height:14px;padding:0 3px;border:1px solid #E83D2D;border-radius:2px;font-family:NotoSans;font-size:0.688em;color:#fff;font-weight:normal;line-height:12px;background-color:#E83D2D;font-weight:200}
+.evt_lst .tit{padding-left:25px;position: relative;}
+.evt_lst .tit .a_more{font-size:14px;position: absolute;bottom:0;right:20px;color:#000;text-decoration:none;line-height:24px}
+.evt_lst .lb{overflow:hidden;display:inline-block;height:15px;padding:0 5px 0 3px;border:1px solid #E83D2D;border-radius:2px;font-family:NotoSans;font-size:12px;color:#fff;font-weight:normal;line-height:13px;background-color:#E83D2D;font-weight:200;font-style: italic;}
+.evt_lst .lb strong{font-weight:500}
 .evt_lst .tx{font-size:16px;letter-spacing:-.5px;font-weight:500;margin-top:6px}
 
 .evt_lst .tit2{width:200px;margin-left:auto;margin-right:auto}
@@ -2532,6 +2534,7 @@
 .evt_lst .txp{font-size:15px;letter-spacing:-.5px;margin-top:10px;color:#fff}
 
 .evt_lst{background-image: url(../img/bg_evt_mov.png);background-position:100% 100%;background-repeat:no-repeat;background-size:45% auto;}
+.evt_lst:after{content:'';clear:both;display:block}
 .evt_lst .prd_contents_lst{}
 .evt_lst .prd_contents_lst > ul{white-space:nowrap;overflow-y:auto;text-align: center;padding:30px 20px;-webkit-overflow-scrolling: touch;}
 .evt_lst .prd_contents_lst > ul:after{content:'';display:block;clear:both}
@@ -2579,6 +2582,7 @@
 
 .evt_lst .btn_mv_more{display:block;text-align: center;height:50px;line-height:50px;background-color:#4498F2;color:#fff;font-size:15px;margin:30px 30px 0;letter-spacing:-.5px}
 .evt_lst .btn_mv_more:before{content:'';display:inline-block;width:25px;height:50px;background:url(../img/ic_more.png) 0 43% no-repeat;background-size:25px auto;vertical-align: top;margin-right:13px;}
+.evt_lst .btn_mv_more2{display:inline-block;float:right;margin:30px 30px 0 0 ;color:#000;font-size:15px;font-weight:500}
 .evt_lst.evt_free_mov{background-color:#000;padding-top:70px}
 .evt_lst.evt_free_mov .tx{color:#fff}
 .evt_lst.evt_free_mov +.evt_lst{padding-top:70px}
@@ -2590,3 +2594,8 @@
 .event_inform > .list .item { position:relative; margin:0.5em 0 0; padding:0 0 0 0.75em; font-size:14px; line-height:1.5; }
 .event_inform > .list .item:first-child { margin:0; }
 .event_inform > .list .item:before { content:'-'; position:absolute; left:0; top:0; }
+.evt_bnnr{position: relative;}
+.evt_bnnr > img{max-width:100%;vertical-align: top;}
+.evt_bnnr > a{display:inline-block;position: absolute}
+.evt_bnnr > a.link1{width:22%;height:29%;left:18%;top:25%}
+.evt_bnnr > a.link2{width:22%;height:29%;left:59%;top:25%}
